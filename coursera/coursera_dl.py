@@ -330,7 +330,7 @@ def download_lectures(downloader,
     last_update = -1
 
     def format_section(num, section):
-        sec = '%02d_%s' % (num, section)
+        sec = '%02d_%s' % (num, section[:77])
         if verbose_dirs:
             sec = class_name.upper() + '_' + sec
         return sec
@@ -338,12 +338,14 @@ def download_lectures(downloader,
     def format_resource(num, name, title, fmt):
         if title:
             title = '_' + title
-        return '%02d_%s%s.%s' % (num, name, title, fmt)
+        combination = name + title
+        return '%02d_%s.%s' % (num, combination[:77], fmt)
 
     def format_combine_number_resource(secnum, lecnum, lecname, title, fmt):
         if title:
             title = '_' + title
-        return '%02d_%02d_%s%s.%s' % (secnum, lecnum, lecname, title, fmt)
+        combination = lecname + title
+        return '%02d_%02d_%s.%s' % (secnum, lecnum, combination[:74], fmt)
 
     for (secnum, (section, lectures)) in enumerate(sections):
         if section_filter and not re.search(section_filter, section):
